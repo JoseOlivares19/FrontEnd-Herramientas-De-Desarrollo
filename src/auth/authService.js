@@ -1,4 +1,6 @@
 const USERS_STORAGE_KEY = 'vet_users';
+const TOKEN_STORAGE_KEY = 'vet_auth_token';
+const CURRENT_USER_STORAGE_KEY = 'vet_current_user';
 
 /**
  * Obtiene la lista de todos los usuarios/propietarios registrados en LocalStorage.
@@ -33,7 +35,6 @@ export const isEmailRegistered = (email) => {
  * @returns {{ success: boolean, user?: Object, error?: string }}
  */
 export const registerOwner = ({ nombre, email, telefono, password, direccion = '' }) => {
-  // Validaciones básicas de campos obligatorios
   if (!nombre?.trim()) {
     return { success: false, error: 'El nombre completo es requerido.' };
   }
@@ -49,12 +50,10 @@ export const registerOwner = ({ nombre, email, telefono, password, direccion = '
 
   const normalizedEmail = email.trim().toLowerCase();
 
-  // Validar unicidad del correo
   if (isEmailRegistered(normalizedEmail)) {
     return { success: false, error: 'El correo electrónico ya se encuentra registrado.' };
   }
 
-  // Crear objeto del nuevo propietario
   const newOwner = {
     id: typeof crypto !== 'undefined' && crypto.randomUUID
       ? crypto.randomUUID()
@@ -63,7 +62,7 @@ export const registerOwner = ({ nombre, email, telefono, password, direccion = '
     email: normalizedEmail,
     telefono: telefono.trim(),
     direccion: direccion.trim(),
-    password, // Simulación de almacenamiento de credenciales
+    password, // Almacenamiento simulado en backend local
     role: 'propietario',
     createdAt: new Date().toISOString(),
   };
@@ -87,6 +86,143 @@ export const registerOwner = ({ nombre, email, telefono, password, direccion = '
 };
 
 /**
+ * Genera un token temporal simulado.
+ * @param {Object} user
+ * @returns {string} Token temporal con datos codificados y timestamp.
+ */
+const generateTemporaryToken = (user) => {
+  const payload = {
+    sub: user.id,
+    email: user.email,
+    role: user.role,
+    iat: Date.now(),
+    exp: Date.now() + 24 * 60 * 60 * 1000, // Validez de 24 horas
+  };
+
+  try {
+    const encodedPayload = btoa(JSON.stringify(payload)).replace(/=+$/, '');
+    return `vet_tk_${encodedPayload}_${Date.now()}`;
+  } catch {
+    return `vet_tk_${user.id}_${Date.now()}`;
+  }
+};
+
+/**
+ * Valida el ingreso buscando al usuario en LocalStorage y guarda un token temporal (US 02).
+ * @param {{ email: string, password: string }} credentials - Credenciales de acceso.
+ * @returns {{ success: boolean, token?: string, user?: Object, error?: string }}
+ */
+export const loginUser = ({ email, password }) => {
+  if (!email?.trim()) {
+    return { success: false, error: 'Ingresa tu correo electrónico.' };
+  }
+  if (!password) {
+    return { success: false, error: 'Ingresa tu contraseña.' };
+  }
+
+  const normalizedEmail = email.trim().toLowerCase();
+  const users = getRegisteredUsers();
+
+  // Buscar usuario en el arreglo de LocalStorage
+  const foundUser = users.find(
+    (user) => user.email.toLowerCase() === normalizedEmail
+  );
+
+  if (!foundUser) {
+    return {
+      success: false,
+      error: 'No existe una cuenta registrada con este correo electrónico.',
+    };
+  }
+
+  // Validar contraseña
+  if (foundUser.password !== password) {
+    return {
+      success: false,
+      error: 'Contraseña incorrecta. Por favor, verifica tus datos.',
+    };
+  }
+
+  // Generar token temporal
+  const token = generateTemporaryToken(foundUser);
+
+  // Objeto de sesión seguro (sin exponer la contraseña)
+  const sessionUser = {
+    id: foundUser.id,
+    nombre: foundUser.nombre,
+    email: foundUser.email,
+    telefono: foundUser.telefono,
+    direccion: foundUser.direccion || '',
+    role: foundUser.role || 'propietario',
+  };
+
+  try {
+    // Guardar token temporal y usuario activo en LocalStorage
+    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+    localStorage.setItem(CURRENT_USER_STORAGE_KEY, JSON.stringify(sessionUser));
+
+    return {
+      success: true,
+      token,
+      user: sessionUser,
+    };
+  } catch (error) {
+    console.error('Error al guardar token temporal en LocalStorage:', error);
+    return {
+      success: false,
+      error: 'No se pudo guardar la sesión en LocalStorage.',
+    };
+  }
+};
+
+/**
+ * Obtiene el token temporal actual desde LocalStorage.
+ * @returns {string|null}
+ */
+export const getAuthToken = () => {
+  try {
+    return localStorage.getItem(TOKEN_STORAGE_KEY);
+  } catch (error) {
+    console.error('Error al obtener token de LocalStorage:', error);
+    return null;
+  }
+};
+
+/**
+ * Obtiene los datos del usuario en sesión activa.
+ * @returns {Object|null}
+ */
+export const getCurrentUser = () => {
+  try {
+    const raw = localStorage.getItem(CURRENT_USER_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (error) {
+    console.error('Error al obtener usuario actual de LocalStorage:', error);
+    return null;
+  }
+};
+
+/**
+ * Verifica si hay una sesión activa con token en LocalStorage.
+ * @returns {boolean}
+ */
+export const isAuthenticated = () => {
+  return Boolean(getAuthToken());
+};
+
+/**
+ * Cierra la sesión eliminando el token temporal y el usuario de LocalStorage.
+ */
+export const logoutUser = () => {
+  try {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(CURRENT_USER_STORAGE_KEY);
+  } catch (error) {
+    console.error('Error al cerrar sesión en LocalStorage:', error);
+  }
+};
+
+/**
  * Limpia la lista de usuarios en LocalStorage (útil para pruebas y desarrollo).
  */
 export const clearRegisteredUsers = () => {
@@ -97,3 +233,4 @@ export const clearRegisteredUsers = () => {
   }
 };
 
+export { USERS_STORAGE_KEY, TOKEN_STORAGE_KEY, CURRENT_USER_STORAGE_KEY };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { registerOwner, getRegisteredUsers, clearRegisteredUsers } from './authService';
 
-export default function Register() {
+export default function Register({ onNavigateToLogin }) {
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -395,6 +395,26 @@ export default function Register() {
               >
                 Registrar Propietario
               </button>
+            </div>
+
+            {/* Enlace a Inicio de Sesión */}
+            <div className="mt-6 pt-5 border-t border-slate-100 text-center">
+              <p className="text-xs text-slate-500">
+                ¿Ya tienes una cuenta registrada?{' '}
+                {onNavigateToLogin ? (
+                  <button
+                    type="button"
+                    onClick={onNavigateToLogin}
+                    className="font-semibold text-emerald-600 hover:text-emerald-700 underline ml-1 cursor-pointer"
+                  >
+                    Inicia sesión aquí
+                  </button>
+                ) : (
+                  <span className="font-semibold text-emerald-600 ml-1">
+                    Usa la opción de Iniciar Sesión
+                  </span>
+                )}
+              </p>
             </div>
           </form>
         </div>
