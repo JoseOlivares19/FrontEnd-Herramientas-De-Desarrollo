@@ -4,6 +4,8 @@ import {
   Register,
   Dashboard,
   LogoutButton,
+  ProtectedRoute,
+  PublicRoute,
   isAuthenticated,
   logoutUser,
 } from './auth';
@@ -15,7 +17,7 @@ function App() {
   const [hasAuth, setHasAuth] = useState(() => isAuthenticated());
   const [logoutNotice, setLogoutNotice] = useState('');
 
-  // Escuchar eventos globales de cierre de sesión
+  // Sincronizar estado global al cerrar sesión
   useEffect(() => {
     const handleAuthLogout = () => {
       setHasAuth(false);
@@ -54,7 +56,7 @@ function App() {
 
   return (
     <div>
-      {/* Navegación superior con estados de las historias de usuario */}
+      {/* Barra de navegación superior con historias de usuario */}
       <header className="bg-white/85 backdrop-blur border-b border-slate-200 sticky top-0 z-50 shadow-xs">
         <div className="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
@@ -64,30 +66,35 @@ function App() {
               }`}
             ></span>
             <span className="text-xs font-bold text-slate-800 tracking-wide">
-              Clínica Veterinaria &bull; Módulo Auth
+              Clínica Veterinaria &bull; Sistema de Autenticación
             </span>
-            {hasAuth && (
+            {hasAuth ? (
               <span className="text-[10px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
                 Token Activo
+              </span>
+            ) : (
+              <span className="text-[10px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+                Sin Sesión
               </span>
             )}
           </div>
 
           <div className="flex items-center gap-2 flex-wrap justify-center">
             <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
-              {hasAuth && (
-                <button
-                  type="button"
-                  onClick={() => handleNavigate('dashboard')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                    currentView === 'dashboard'
-                      ? 'bg-white text-emerald-700 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Panel Propietario
-                </button>
-              )}
+              {/* Botón para probar la Ruta Protegida (US 04) */}
+              <button
+                type="button"
+                onClick={() => handleNavigate('dashboard')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  currentView === 'dashboard'
+                    ? 'bg-white text-emerald-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                title="Prueba el componente envolvente ProtectedRoute"
+              >
+                US 04: Ruta Protegida
+              </button>
+
               <button
                 type="button"
                 onClick={() => handleNavigate('login')}
@@ -99,6 +106,7 @@ function App() {
               >
                 US 02: Iniciar Sesión
               </button>
+
               <button
                 type="button"
                 onClick={() => handleNavigate('register')}
@@ -112,7 +120,7 @@ function App() {
               </button>
             </div>
 
-            {/* US 03: Botón de Cierre de Sesión en el Header */}
+            {/* US 03: Cerrar sesión */}
             {hasAuth && (
               <LogoutButton
                 onRedirectToLogin={handleRedirectToLoginAfterLogout}
@@ -124,19 +132,25 @@ function App() {
         </div>
       </header>
 
-      {/* Vista Activa */}
+      {/* Renderizado mediante Componentes Envolventes (US 04) */}
       <main>
-        {currentView === 'dashboard' && hasAuth ? (
-          <Dashboard onRedirectToLogin={handleRedirectToLoginAfterLogout} />
+        {currentView === 'dashboard' ? (
+          <ProtectedRoute onUnauthorized={() => handleNavigate('login')}>
+            <Dashboard onRedirectToLogin={handleRedirectToLoginAfterLogout} />
+          </ProtectedRoute>
         ) : currentView === 'register' ? (
-          <Register onNavigateToLogin={() => handleNavigate('login')} />
+          <PublicRoute onNavigateToDashboard={() => handleNavigate('dashboard')}>
+            <Register onNavigateToLogin={() => handleNavigate('login')} />
+          </PublicRoute>
         ) : (
-          <Login
-            key={logoutNotice}
-            logoutNotice={logoutNotice}
-            onNavigateToRegister={() => handleNavigate('register')}
-            onLoginSuccess={handleLoginSuccess}
-          />
+          <PublicRoute onNavigateToDashboard={() => handleNavigate('dashboard')}>
+            <Login
+              key={logoutNotice}
+              logoutNotice={logoutNotice}
+              onNavigateToRegister={() => handleNavigate('register')}
+              onLoginSuccess={handleLoginSuccess}
+            />
+          </PublicRoute>
         )}
       </main>
     </div>
