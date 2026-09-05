@@ -18,7 +18,6 @@ export default function Register({ onNavigateToLogin }) {
   const [registeredUsers, setRegisteredUsers] = useState(() => getRegisteredUsers());
   const [showStorageData, setShowStorageData] = useState(true);
 
-  // Cargar usuarios registrados desde LocalStorage
   const refreshUsersList = () => {
     setRegisteredUsers(getRegisteredUsers());
   };
@@ -30,7 +29,6 @@ export default function Register({ onNavigateToLogin }) {
       [name]: value,
     }));
 
-    // Limpiar error específico al escribir
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -116,12 +114,12 @@ export default function Register({ onNavigateToLogin }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-[#E2F2F3] py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center font-sans">
       {/* Contenedor Principal */}
       <div className="w-full max-w-xl">
         {/* Cabecera / Branding */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-600 text-white shadow-lg mb-3">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#0D7C84] text-white shadow-md mb-3">
             <svg
               className="w-9 h-9"
               fill="currentColor"
@@ -134,21 +132,21 @@ export default function Register({ onNavigateToLogin }) {
           <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight">
             Clínica Veterinaria
           </h1>
-          <p className="text-sm font-medium text-emerald-700 mt-1">
+          <p className="text-sm font-semibold text-[#0D7C84] mt-1">
             Módulo de Autenticación &bull; US 01
           </p>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-[#64748B] mt-1">
             Registro de nuevo propietario (Persistencia en LocalStorage)
           </p>
         </div>
 
-        {/* Tarjeta del Formulario */}
-        <div className="bg-white/95 backdrop-blur shadow-xl rounded-2xl p-6 sm:p-8 border border-emerald-100">
+        {/* Tarjeta del Formulario (Fondo blanco y bordes limpios) */}
+        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-200">
           <div className="mb-6 border-b border-slate-100 pb-4">
             <h2 className="text-xl font-bold text-slate-800">
               Crear Cuenta de Propietario
             </h2>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-[#64748B] mt-0.5">
               Registra tus datos para solicitar citas médicas para tus mascotas.
             </p>
           </div>
@@ -179,10 +177,10 @@ export default function Register({ onNavigateToLogin }) {
           {successMessage && (
             <div
               role="alert"
-              className="mb-5 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-start gap-3"
+              className="mb-5 p-4 rounded-xl bg-[#E2F2F3] border border-[#0D7C84]/30 text-[#0D7C84] text-sm flex items-start gap-3"
             >
               <svg
-                className="w-5 h-5 flex-shrink-0 mt-0.5 text-emerald-600"
+                className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#0D7C84]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -195,8 +193,8 @@ export default function Register({ onNavigateToLogin }) {
                 />
               </svg>
               <div>
-                <p className="font-semibold">{successMessage}</p>
-                <p className="text-xs text-emerald-600 mt-0.5">
+                <p className="font-semibold text-slate-800">{successMessage}</p>
+                <p className="text-xs text-[#0D7C84] mt-0.5 font-medium">
                   El registro fue incorporado al arreglo en LocalStorage con éxito.
                 </p>
               </div>
@@ -210,24 +208,22 @@ export default function Register({ onNavigateToLogin }) {
                 htmlFor="nombre"
                 className="block text-sm font-semibold text-slate-700 mb-1"
               >
-                Nombre Completo <span className="text-red-500">*</span>
+                Nombre Completo <span className="text-[#F59E0B]">*</span>
               </label>
-              <div className="relative">
-                <input
-                  id="nombre"
-                  name="nombre"
-                  type="text"
-                  autoComplete="name"
-                  placeholder="Ej. Juan Pérez"
-                  value={formData.nombre}
-                  onChange={handleChange}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
-                    errors.nombre
-                      ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
-                      : 'border-slate-300 focus:border-emerald-500 focus:ring-emerald-200 bg-white'
-                  }`}
-                />
-              </div>
+              <input
+                id="nombre"
+                name="nombre"
+                type="text"
+                autoComplete="name"
+                placeholder="Ej. Juan Pérez"
+                value={formData.nombre}
+                onChange={handleChange}
+                className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
+                  errors.nombre
+                    ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
+                    : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
+                }`}
+              />
               {errors.nombre && (
                 <p className="mt-1 text-xs text-red-600 font-medium">{errors.nombre}</p>
               )}
@@ -241,7 +237,7 @@ export default function Register({ onNavigateToLogin }) {
                   htmlFor="email"
                   className="block text-sm font-semibold text-slate-700 mb-1"
                 >
-                  Correo Electrónico <span className="text-red-500">*</span>
+                  Correo Electrónico <span className="text-[#F59E0B]">*</span>
                 </label>
                 <input
                   id="email"
@@ -251,10 +247,10 @@ export default function Register({ onNavigateToLogin }) {
                   placeholder="juan@ejemplo.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                     errors.email
                       ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
-                      : 'border-slate-300 focus:border-emerald-500 focus:ring-emerald-200 bg-white'
+                      : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                   }`}
                 />
                 {errors.email && (
@@ -268,7 +264,7 @@ export default function Register({ onNavigateToLogin }) {
                   htmlFor="telefono"
                   className="block text-sm font-semibold text-slate-700 mb-1"
                 >
-                  Teléfono / Móvil <span className="text-red-500">*</span>
+                  Teléfono / Móvil <span className="text-[#F59E0B]">*</span>
                 </label>
                 <input
                   id="telefono"
@@ -279,10 +275,10 @@ export default function Register({ onNavigateToLogin }) {
                   placeholder="987654321"
                   value={formData.telefono}
                   onChange={handleChange}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                     errors.telefono
                       ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
-                      : 'border-slate-300 focus:border-emerald-500 focus:ring-emerald-200 bg-white'
+                      : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                   }`}
                 />
                 {errors.telefono && (
@@ -297,7 +293,7 @@ export default function Register({ onNavigateToLogin }) {
                 htmlFor="direccion"
                 className="block text-sm font-semibold text-slate-700 mb-1"
               >
-                Dirección <span className="text-xs text-slate-400 font-normal">(Opcional)</span>
+                Dirección <span className="text-xs text-[#64748B] font-normal">(Opcional)</span>
               </label>
               <input
                 id="direccion"
@@ -307,7 +303,7 @@ export default function Register({ onNavigateToLogin }) {
                 placeholder="Av. Principal 123, Distrito"
                 value={formData.direccion}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-emerald-500 focus:ring-emerald-200 bg-white"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20 bg-white text-slate-800 placeholder:text-slate-400"
               />
             </div>
 
@@ -319,7 +315,7 @@ export default function Register({ onNavigateToLogin }) {
                   htmlFor="new-password"
                   className="block text-sm font-semibold text-slate-700 mb-1"
                 >
-                  Contraseña <span className="text-red-500">*</span>
+                  Contraseña <span className="text-[#F59E0B]">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -330,16 +326,16 @@ export default function Register({ onNavigateToLogin }) {
                     placeholder="Mínimo 6 caracteres"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`w-full px-3.5 py-2.5 pr-10 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                    className={`w-full px-3.5 py-2.5 pr-10 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                       errors.password
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
-                        : 'border-slate-300 focus:border-emerald-500 focus:ring-emerald-200 bg-white'
+                        : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                     }`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#64748B] hover:text-slate-800 focus:outline-none"
                     aria-label={showPassword ? 'Ocultar contraseña' : 'Ver contraseña'}
                   >
                     {showPassword ? (
@@ -365,7 +361,7 @@ export default function Register({ onNavigateToLogin }) {
                   htmlFor="confirmPassword"
                   className="block text-sm font-semibold text-slate-700 mb-1"
                 >
-                  Repetir Contraseña <span className="text-red-500">*</span>
+                  Repetir Contraseña <span className="text-[#F59E0B]">*</span>
                 </label>
                 <input
                   id="confirmPassword"
@@ -375,10 +371,10 @@ export default function Register({ onNavigateToLogin }) {
                   placeholder="Repite tu contraseña"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 ${
+                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                     errors.confirmPassword
                       ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
-                      : 'border-slate-300 focus:border-emerald-500 focus:ring-emerald-200 bg-white'
+                      : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                   }`}
                 />
                 {errors.confirmPassword && (
@@ -387,11 +383,11 @@ export default function Register({ onNavigateToLogin }) {
               </div>
             </div>
 
-            {/* Botón Submit */}
+            {/* Botón Submit: Tono Primary (#0D7C84) con texto blanco y esquinas redondeadas */}
             <div className="pt-3">
               <button
                 type="submit"
-                className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out cursor-pointer"
+                className="w-full py-3 px-4 bg-[#0D7C84] hover:bg-[#0A646A] active:scale-[0.99] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out cursor-pointer"
               >
                 Registrar Propietario
               </button>
@@ -399,18 +395,18 @@ export default function Register({ onNavigateToLogin }) {
 
             {/* Enlace a Inicio de Sesión */}
             <div className="mt-6 pt-5 border-t border-slate-100 text-center">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#64748B]">
                 ¿Ya tienes una cuenta registrada?{' '}
                 {onNavigateToLogin ? (
                   <button
                     type="button"
                     onClick={onNavigateToLogin}
-                    className="font-semibold text-emerald-600 hover:text-emerald-700 underline ml-1 cursor-pointer"
+                    className="font-semibold text-[#0D7C84] hover:text-[#0A646A] underline ml-1 cursor-pointer"
                   >
                     Inicia sesión aquí
                   </button>
                 ) : (
-                  <span className="font-semibold text-emerald-600 ml-1">
+                  <span className="font-semibold text-[#0D7C84] ml-1">
                     Usa la opción de Iniciar Sesión
                   </span>
                 )}
@@ -420,14 +416,14 @@ export default function Register({ onNavigateToLogin }) {
         </div>
 
         {/* Panel de Inspección de LocalStorage (Evidencia US 01) */}
-        <div className="mt-8 bg-white/90 backdrop-blur rounded-2xl p-5 border border-slate-200 shadow-md">
+        <div className="mt-8 bg-white rounded-2xl p-5 border border-slate-200 shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="flex h-3 w-3 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F59E0B] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#F59E0B]"></span>
               </span>
-              <h3 className="text-sm font-bold text-slate-700">
+              <h3 className="text-sm font-bold text-slate-800">
                 LocalStorage: Arreglo de Propietarios ({registeredUsers.length})
               </h3>
             </div>
@@ -435,7 +431,7 @@ export default function Register({ onNavigateToLogin }) {
               <button
                 type="button"
                 onClick={() => setShowStorageData(!showStorageData)}
-                className="text-xs text-slate-600 hover:text-emerald-700 font-medium px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 transition"
+                className="text-xs text-[#64748B] hover:text-[#0D7C84] font-medium px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 transition"
               >
                 {showStorageData ? 'Ocultar' : 'Mostrar'}
               </button>
@@ -443,7 +439,7 @@ export default function Register({ onNavigateToLogin }) {
                 <button
                   type="button"
                   onClick={handleClearUsers}
-                  className="text-xs text-red-600 hover:text-red-700 font-medium px-2 py-1 rounded-lg bg-red-50 hover:bg-red-100 transition"
+                  className="text-xs text-red-600 hover:text-red-700 font-medium px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 transition"
                 >
                   Vaciar LocalStorage
                 </button>
@@ -455,8 +451,8 @@ export default function Register({ onNavigateToLogin }) {
             <div className="mt-4">
               {registeredUsers.length === 0 ? (
                 <div className="text-center py-6 border-2 border-dashed border-slate-200 rounded-xl">
-                  <p className="text-xs text-slate-500">
-                    Aún no hay propietarios en el arreglo de <code className="bg-slate-100 px-1 py-0.5 rounded text-emerald-700">localStorage.getItem(&apos;vet_users&apos;)</code>.
+                  <p className="text-xs text-[#64748B]">
+                    Aún no hay propietarios en el arreglo de <code className="bg-slate-100 px-1 py-0.5 rounded text-[#0D7C84] font-semibold">localStorage.getItem(&apos;vet_users&apos;)</code>.
                   </p>
                   <p className="text-xs text-slate-400 mt-1">
                     Completa el formulario superior para registrar el primero.
@@ -469,24 +465,24 @@ export default function Register({ onNavigateToLogin }) {
                       key={user.id || index}
                       className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1"
                     >
-                      <div className="flex items-center justify-between font-semibold text-emerald-800">
+                      <div className="flex items-center justify-between font-semibold text-slate-800">
                         <span>
                           #{index + 1} &bull; {user.nombre}
                         </span>
-                        <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-[10px]">
+                        <span className="px-2 py-0.5 bg-[#E2F2F3] text-[#0D7C84] font-bold rounded-full text-[10px]">
                           {user.role}
                         </span>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-0.5 text-slate-600">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-0.5 text-[#64748B]">
                         <p>
-                          <span className="font-medium text-slate-500">Email:</span> {user.email}
+                          <span className="font-semibold text-slate-700">Email:</span> {user.email}
                         </p>
                         <p>
-                          <span className="font-medium text-slate-500">Teléfono:</span> {user.telefono}
+                          <span className="font-semibold text-slate-700">Teléfono:</span> {user.telefono}
                         </p>
                         {user.direccion && (
                           <p className="sm:col-span-2">
-                            <span className="font-medium text-slate-500">Dirección:</span> {user.direccion}
+                            <span className="font-semibold text-slate-700">Dirección:</span> {user.direccion}
                           </p>
                         )}
                         <p className="sm:col-span-2 text-[10px] text-slate-400">

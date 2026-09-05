@@ -83,11 +83,11 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-[#E2F2F3] py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center font-sans">
       <div className="w-full max-w-md">
         {/* Encabezado / Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-600 text-white shadow-lg mb-3">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#0D7C84] text-white shadow-md mb-3">
             <svg
               className="w-9 h-9"
               fill="currentColor"
@@ -100,26 +100,26 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
           <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight">
             Clínica Veterinaria
           </h1>
-          <p className="text-sm font-medium text-emerald-700 mt-1">
+          <p className="text-sm font-semibold text-[#0D7C84] mt-1">
             Módulo de Autenticación &bull; US 02
           </p>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-[#64748B] mt-1">
             Inicio de sesión con validación y token temporal en LocalStorage
           </p>
         </div>
 
         {/* Tarjeta de Sesión Activa (Si ya existe token en LocalStorage) */}
         {session.token && session.user && (
-          <div className="mb-6 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 shadow-md">
+          <div className="mb-6 bg-white border border-[#0D7C84]/30 rounded-2xl p-5 shadow-md">
             <div className="flex items-center justify-between mb-3">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 uppercase tracking-wider">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0D7C84] uppercase tracking-wider bg-[#E2F2F3] px-2.5 py-1 rounded-full border border-[#0D7C84]/20">
+                <span className="h-2 w-2 rounded-full bg-[#0D7C84] animate-pulse"></span>
                 Sesión Activa
               </span>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="text-xs text-red-600 hover:text-red-700 font-semibold px-2.5 py-1 rounded-lg bg-red-100/60 hover:bg-red-100 transition"
+                className="text-xs text-red-600 hover:text-red-700 font-semibold px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 transition cursor-pointer"
               >
                 Cerrar Sesión
               </button>
@@ -127,27 +127,27 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
             <p className="text-sm font-bold text-slate-800">
               {session.user.nombre}
             </p>
-            <p className="text-xs text-slate-600">
-              {session.user.email} &bull; Rol: <span className="font-medium text-emerald-700">{session.user.role}</span>
+            <p className="text-xs text-[#64748B]">
+              {session.user.email} &bull; Rol: <span className="font-semibold text-[#0D7C84]">{session.user.role}</span>
             </p>
-            <div className="mt-3 pt-3 border-t border-emerald-200/80">
-              <p className="text-[11px] font-semibold text-emerald-900 mb-1">
-                Token temporal guardado (<code className="text-emerald-700 font-mono">{TOKEN_STORAGE_KEY}</code>):
+            <div className="mt-3 pt-3 border-t border-slate-100">
+              <p className="text-[11px] font-semibold text-slate-700 mb-1">
+                Token temporal guardado (<code className="text-[#0D7C84] font-mono">{TOKEN_STORAGE_KEY}</code>):
               </p>
-              <div className="p-2 bg-white/80 rounded-lg border border-emerald-200 text-[10px] font-mono text-slate-700 break-all select-all">
+              <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[10px] font-mono text-slate-700 break-all select-all">
                 {session.token}
               </div>
             </div>
           </div>
         )}
 
-        {/* Tarjeta de Formulario de Inicio de Sesión */}
-        <div className="bg-white/95 backdrop-blur shadow-xl rounded-2xl p-6 sm:p-8 border border-emerald-100">
+        {/* Tarjeta de Formulario de Inicio de Sesión (Fondo blanco y bordes limpios) */}
+        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-slate-200">
           <div className="mb-6 border-b border-slate-100 pb-4">
             <h2 className="text-xl font-bold text-slate-800">
               Iniciar Sesión
             </h2>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-[#64748B] mt-0.5">
               Ingresa tus credenciales para acceder al sistema.
             </p>
           </div>
@@ -156,10 +156,10 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
           {notice && (
             <div
               role="alert"
-              className="mb-5 p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-sm flex items-start gap-3"
+              className="mb-5 p-4 rounded-xl bg-[#E2F2F3] border border-[#0D7C84]/30 text-[#0D7C84] text-sm flex items-start gap-3"
             >
               <svg
-                className="w-5 h-5 flex-shrink-0 mt-0.5 text-blue-600"
+                className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#0D7C84]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -172,8 +172,8 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
                 />
               </svg>
               <div>
-                <p className="font-semibold">Sesión Finalizada</p>
-                <p className="text-xs text-blue-600 mt-0.5">{notice}</p>
+                <p className="font-semibold text-slate-800">Sesión Finalizada</p>
+                <p className="text-xs text-[#0D7C84] mt-0.5 font-medium">{notice}</p>
               </div>
             </div>
           )}
@@ -205,10 +205,10 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
           {success && (
             <div
               role="alert"
-              className="mb-5 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-start gap-3"
+              className="mb-5 p-4 rounded-xl bg-[#E2F2F3] border border-[#0D7C84]/30 text-[#0D7C84] text-sm flex items-start gap-3"
             >
               <svg
-                className="w-5 h-5 flex-shrink-0 mt-0.5 text-emerald-600"
+                className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#0D7C84]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -221,8 +221,8 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
                 />
               </svg>
               <div>
-                <p className="font-semibold">{success}</p>
-                <p className="text-xs text-emerald-600 mt-0.5">
+                <p className="font-semibold text-slate-800">{success}</p>
+                <p className="text-xs text-[#0D7C84] mt-0.5 font-medium">
                   Token temporal generado y guardado en LocalStorage.
                 </p>
               </div>
@@ -247,7 +247,7 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
                 placeholder="juan@ejemplo.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-emerald-500 focus:ring-emerald-200 bg-white"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20 bg-white text-slate-800 placeholder:text-slate-400"
               />
             </div>
 
@@ -269,12 +269,12 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
                   placeholder="Tu contraseña registrada"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-emerald-500 focus:ring-emerald-200 bg-white"
+                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20 bg-white text-slate-800 placeholder:text-slate-400"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#64748B] hover:text-slate-800 focus:outline-none"
                   aria-label={showPassword ? 'Ocultar contraseña' : 'Ver contraseña'}
                 >
                   {showPassword ? (
@@ -291,11 +291,11 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
               </div>
             </div>
 
-            {/* Botón Submit */}
+            {/* Botón Submit: Tono Primary (#0D7C84) con texto blanco y esquinas redondeadas */}
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out cursor-pointer"
+                className="w-full py-3 px-4 bg-[#0D7C84] hover:bg-[#0A646A] active:scale-[0.99] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out cursor-pointer"
               >
                 Iniciar Sesión
               </button>
@@ -304,18 +304,18 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
 
           {/* Enlace para registrarse */}
           <div className="mt-6 pt-5 border-t border-slate-100 text-center">
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#64748B]">
               ¿Aún no tienes cuenta de propietario?{' '}
               {onNavigateToRegister ? (
                 <button
                   type="button"
                   onClick={onNavigateToRegister}
-                  className="font-semibold text-emerald-600 hover:text-emerald-700 underline ml-1 cursor-pointer"
+                  className="font-semibold text-[#0D7C84] hover:text-[#0A646A] underline ml-1 cursor-pointer"
                 >
                   Regístrate aquí
                 </button>
               ) : (
-                <span className="font-semibold text-emerald-600 ml-1">
+                <span className="font-semibold text-[#0D7C84] ml-1">
                   Usa la pestaña de Registro
                 </span>
               )}
@@ -323,13 +323,13 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
           </div>
         </div>
 
-        {/* Ayuda de prueba rápida: Usuarios registrados en LocalStorage */}
+        {/* Ayuda de prueba rápida: Cuentas registradas en LocalStorage */}
         {registeredUsers.length > 0 && (
-          <div className="mt-6 bg-white/90 backdrop-blur rounded-2xl p-4 border border-slate-200 shadow-sm text-xs">
-            <p className="font-semibold text-slate-700 mb-2">
-              💡 Cuentas de prueba en LocalStorage ({registeredUsers.length}):
+          <div className="mt-6 bg-white rounded-2xl p-4 border border-slate-200 shadow-sm text-xs">
+            <p className="font-bold text-slate-800 mb-1.5 flex items-center gap-1.5">
+              <span className="text-[#F59E0B]">💡</span> Cuentas de prueba en LocalStorage ({registeredUsers.length}):
             </p>
-            <p className="text-slate-500 mb-3 text-[11px]">
+            <p className="text-[#64748B] mb-3 text-[11px]">
               Haz clic en cualquiera para autocompletar las credenciales:
             </p>
             <div className="flex flex-wrap gap-2">
@@ -338,10 +338,10 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
                   key={u.id}
                   type="button"
                   onClick={() => handleQuickFill(u)}
-                  className="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-left transition cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-xl bg-[#E2F2F3] hover:bg-[#d4ecee] text-[#0D7C84] border border-[#0D7C84]/20 text-left transition cursor-pointer"
                 >
-                  <span className="font-medium block">{u.nombre}</span>
-                  <span className="text-[10px] text-slate-500 block">{u.email}</span>
+                  <span className="font-semibold block">{u.nombre}</span>
+                  <span className="text-[10px] text-[#64748B] block">{u.email}</span>
                 </button>
               ))}
             </div>
@@ -351,4 +351,3 @@ export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNoti
     </div>
   );
 }
-

@@ -36,12 +36,12 @@ export default function ProtectedRoute({
     return <>{fallback}</>;
   }
 
-  // Vista de bloqueo por defecto: Pantalla de Acceso Denegado
+  // Vista de bloqueo por defecto: Pantalla de Acceso Denegado (Fondo Tertiary #E2F2F3)
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-slate-50 to-amber-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
-      <div className="w-full max-w-md bg-white/95 backdrop-blur rounded-2xl p-6 sm:p-8 shadow-xl border border-red-100 text-center">
-        {/* Icono de candado / ruta bloqueada */}
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-100 text-red-600 mb-4 shadow-inner">
+    <div className="min-h-screen bg-[#E2F2F3] py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center font-sans">
+      <div className="w-full max-w-md bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200 text-center">
+        {/* Icono de candado con tono Secondary (#F59E0B) */}
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-50 text-[#F59E0B] border border-amber-200/60 mb-4 shadow-sm">
           <svg
             className="w-8 h-8"
             fill="none"
@@ -61,33 +61,33 @@ export default function ProtectedRoute({
         <h2 className="text-2xl font-extrabold text-slate-800 tracking-tight">
           Acceso Restringido
         </h2>
-        <p className="text-xs font-semibold text-red-600 uppercase tracking-wider mt-1">
+        <p className="text-xs font-bold text-[#F59E0B] uppercase tracking-wider mt-1">
           Ruta Protegida &bull; US 04
         </p>
 
-        <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+        <p className="text-sm text-[#64748B] mt-3 leading-relaxed">
           Esta vista está protegida y requiere autenticación previa. No se encontró ningún token temporal válido en{' '}
-          <code className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-xs text-red-700">
+          <code className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-xs text-[#0D7C84] font-semibold">
             localStorage.getItem(&apos;{TOKEN_STORAGE_KEY}&apos;)
           </code>.
         </p>
 
-        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col gap-2.5">
+        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col gap-3">
           {onUnauthorized && (
             <button
               type="button"
               onClick={onUnauthorized}
-              className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white text-xs font-bold rounded-xl shadow-md transition cursor-pointer"
+              className="w-full py-3 px-4 bg-[#0D7C84] hover:bg-[#0A646A] active:scale-[0.99] text-white text-xs font-bold rounded-xl shadow-md transition cursor-pointer"
             >
               Ir al Inicio de Sesión
             </button>
           )}
 
-          <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-left text-[11px] text-amber-800 space-y-0.5">
-            <p className="font-bold flex items-center gap-1">
+          <div className="p-3.5 bg-[#E2F2F3] rounded-xl border border-[#0D7C84]/30 text-left text-[11px] text-slate-700 space-y-0.5">
+            <p className="font-bold flex items-center gap-1 text-[#0D7C84]">
               <span>🛡️</span> Validación del Envolvente:
             </p>
-            <p>
+            <p className="text-[#64748B]">
               El componente envolvente interceptó la navegación antes de montar la vista privada para proteger los datos médicos y de citas.
             </p>
           </div>
@@ -96,4 +96,3 @@ export default function ProtectedRoute({
     </div>
   );
 }
-

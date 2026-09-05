@@ -55,40 +55,40 @@ function App() {
   };
 
   return (
-    <div>
-      {/* Barra de navegación superior con historias de usuario */}
-      <header className="bg-white/85 backdrop-blur border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+    <div className="min-h-screen bg-[#E2F2F3] font-sans">
+      {/* Barra de navegación superior con diseño pulido */}
+      <header className="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <span
               className={`w-2.5 h-2.5 rounded-full ${
-                hasAuth ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'
+                hasAuth ? 'bg-[#0D7C84] animate-pulse' : 'bg-[#64748B]'
               }`}
             ></span>
             <span className="text-xs font-bold text-slate-800 tracking-wide">
               Clínica Veterinaria &bull; Sistema de Autenticación
             </span>
             {hasAuth ? (
-              <span className="text-[10px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold bg-[#E2F2F3] text-[#0D7C84] px-2.5 py-0.5 rounded-full border border-[#0D7C84]/20">
                 Token Activo
               </span>
             ) : (
-              <span className="text-[10px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-medium bg-slate-100 text-[#64748B] px-2.5 py-0.5 rounded-full border border-slate-200">
                 Sin Sesión
               </span>
             )}
           </div>
 
           <div className="flex items-center gap-2 flex-wrap justify-center">
-            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200/60">
               {/* Botón para probar la Ruta Protegida (US 04) */}
               <button
                 type="button"
                 onClick={() => handleNavigate('dashboard')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                   currentView === 'dashboard'
-                    ? 'bg-white text-emerald-700 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#0D7C84] text-white shadow-sm'
+                    : 'text-[#64748B] hover:text-slate-900'
                 }`}
                 title="Prueba el componente envolvente ProtectedRoute"
               >
@@ -98,10 +98,10 @@ function App() {
               <button
                 type="button"
                 onClick={() => handleNavigate('login')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                   currentView === 'login'
-                    ? 'bg-white text-emerald-700 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#0D7C84] text-white shadow-sm'
+                    : 'text-[#64748B] hover:text-slate-900'
                 }`}
               >
                 US 02: Iniciar Sesión
@@ -110,10 +110,10 @@ function App() {
               <button
                 type="button"
                 onClick={() => handleNavigate('register')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                   currentView === 'register'
-                    ? 'bg-white text-emerald-700 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#0D7C84] text-white shadow-sm'
+                    : 'text-[#64748B] hover:text-slate-900'
                 }`}
               >
                 US 01: Registro
