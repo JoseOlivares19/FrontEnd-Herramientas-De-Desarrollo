@@ -17,7 +17,7 @@ export default function Register({ onNavigateToLogin }) {
   const [submitError, setSubmitError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [registeredUsers, setRegisteredUsers] = useState(() => getRegisteredUsers());
-  const [showStorageData, setShowStorageData] = useState(true);
+  const [showStorageData, setShowStorageData] = useState(false);
 
   const refreshUsersList = () => {
     setRegisteredUsers(getRegisteredUsers());
@@ -89,7 +89,7 @@ export default function Register({ onNavigateToLogin }) {
 
     if (result.success) {
       setSuccessMessage(
-        `¡Propietario ${result.user.nombre} registrado exitosamente en LocalStorage!`
+        `¡Propietario ${result.user.nombre} registrado con éxito en LocalStorage!`
       );
       setFormData({
         nombre: '',
@@ -115,18 +115,18 @@ export default function Register({ onNavigateToLogin }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#E2F2F3] py-8 sm:py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center font-sans">
-      <div className="w-full max-w-5xl">
-        {/* Tarjeta Contenedora Principal Split-Screen (Flujo Simétrico: Formulario a la Izquierda, Hero a la Derecha) */}
-        <div className="bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+    <div className="min-h-[calc(100vh-60px)] bg-[#E2F2F3] py-2 sm:py-4 px-3 sm:px-6 lg:px-8 flex flex-col items-center justify-center font-sans">
+      <div className="w-full max-w-5xl my-auto">
+        {/* Tarjeta Split-Screen con paddings y margins compactos */}
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
           
-          {/* Panel Lateral Izquierdo: Formulario de Registro VetCare */}
-          <div className="p-6 sm:p-10 lg:p-12 flex flex-col justify-center bg-white order-2 lg:order-1">
+          {/* Panel Lateral Izquierdo: Formulario con espaciado vertical reducido */}
+          <div className="p-4 sm:p-6 lg:p-7 flex flex-col justify-center bg-white order-2 lg:order-1">
             {/* Logotipo y Nombre "VetCare" */}
-            <div className="mb-5 flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#0D7C84] text-white flex items-center justify-center shadow-md flex-shrink-0">
+            <div className="mb-2 sm:mb-2.5 flex items-center gap-2.5">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#0D7C84] text-white flex items-center justify-center shadow-sm flex-shrink-0">
                 <svg
-                  className="w-7 h-7"
+                  className="w-5 h-5 sm:w-5 sm:h-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -135,29 +135,30 @@ export default function Register({ onNavigateToLogin }) {
                 </svg>
               </div>
               <div>
-                <span className="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-1">
+                <span className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight flex items-center gap-1 leading-none">
                   Vet<span className="text-[#0D7C84]">Care</span>
                 </span>
-                <p className="text-xs font-semibold text-[#0D7C84]">
+                <p className="text-[10px] sm:text-[11px] font-semibold text-[#0D7C84] mt-0.5">
                   Clínica Veterinaria &bull; Registro de Propietario (US 01)
                 </p>
               </div>
             </div>
 
-            <div className="mb-5">
-              <h3 className="text-xl font-bold text-slate-800">
+            {/* Título y subtítulo */}
+            <div className="mb-2.5 sm:mb-3">
+              <h3 className="text-lg sm:text-xl font-extrabold text-slate-800 tracking-tight leading-snug">
                 Crear Cuenta de Propietario
               </h3>
-              <p className="text-xs text-[#64748B] mt-0.5">
+              <p className="text-xs text-[#64748B]">
                 Registra tus datos para solicitar citas médicas para tus mascotas.
               </p>
             </div>
 
-            {/* Alertas */}
+            {/* Alertas compactas */}
             {submitError && (
               <div
                 role="alert"
-                className="mb-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5"
+                className="mb-2.5 p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2"
               >
                 <svg
                   className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500"
@@ -179,7 +180,7 @@ export default function Register({ onNavigateToLogin }) {
             {successMessage && (
               <div
                 role="alert"
-                className="mb-4 p-3.5 rounded-xl bg-[#E2F2F3] border border-[#0D7C84]/30 text-[#0D7C84] text-xs flex items-start gap-2.5"
+                className="mb-2.5 p-2.5 rounded-xl bg-[#E2F2F3] border border-[#0D7C84]/30 text-[#0D7C84] text-xs flex items-start gap-2"
               >
                 <svg
                   className="w-4 h-4 flex-shrink-0 mt-0.5 text-[#0D7C84]"
@@ -196,17 +197,18 @@ export default function Register({ onNavigateToLogin }) {
                 </svg>
                 <div>
                   <p className="font-bold text-slate-800">{successMessage}</p>
-                  <p className="text-[#0D7C84] mt-0.5">Guardado en LocalStorage con éxito.</p>
+                  <p className="text-[#0D7C84] text-[11px]">Guardado en LocalStorage con éxito.</p>
                 </div>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} noValidate className="space-y-3.5">
+            {/* Formulario compacto sin scroll */}
+            <form onSubmit={handleSubmit} noValidate className="space-y-2 sm:space-y-2.5">
               {/* Campo: Nombre Completo */}
               <div>
                 <label
                   htmlFor="nombre"
-                  className="block text-xs font-semibold text-slate-700 mb-1"
+                  className="block text-xs sm:text-sm font-semibold text-slate-700 mb-0.5"
                 >
                   Nombre Completo <span className="text-[#F59E0B]">*</span>
                 </label>
@@ -218,23 +220,23 @@ export default function Register({ onNavigateToLogin }) {
                   placeholder="Ej. Juan Pérez"
                   value={formData.nombre}
                   onChange={handleChange}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
+                  className={`w-full px-3 py-1.5 sm:py-2 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                     errors.nombre
                       ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
                       : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                   }`}
                 />
                 {errors.nombre && (
-                  <p className="mt-1 text-[11px] text-red-600 font-medium">{errors.nombre}</p>
+                  <p className="mt-0.5 text-[11px] text-red-600 font-medium">{errors.nombre}</p>
                 )}
               </div>
 
               {/* Grid 2 Columnas: Email y Teléfono */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs sm:text-sm font-semibold text-slate-700 mb-0.5"
                   >
                     Correo Electrónico <span className="text-[#F59E0B]">*</span>
                   </label>
@@ -246,21 +248,21 @@ export default function Register({ onNavigateToLogin }) {
                     placeholder="juan@ejemplo.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
+                    className={`w-full px-3 py-1.5 sm:py-2 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                       errors.email
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
                         : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                     }`}
                   />
                   {errors.email && (
-                    <p className="mt-1 text-[11px] text-red-600 font-medium">{errors.email}</p>
+                    <p className="mt-0.5 text-[11px] text-red-600 font-medium">{errors.email}</p>
                   )}
                 </div>
 
                 <div>
                   <label
                     htmlFor="telefono"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs sm:text-sm font-semibold text-slate-700 mb-0.5"
                   >
                     Teléfono / Móvil <span className="text-[#F59E0B]">*</span>
                   </label>
@@ -273,14 +275,14 @@ export default function Register({ onNavigateToLogin }) {
                     placeholder="987654321"
                     value={formData.telefono}
                     onChange={handleChange}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
+                    className={`w-full px-3 py-1.5 sm:py-2 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                       errors.telefono
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
                         : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                     }`}
                   />
                   {errors.telefono && (
-                    <p className="mt-1 text-[11px] text-red-600 font-medium">{errors.telefono}</p>
+                    <p className="mt-0.5 text-[11px] text-red-600 font-medium">{errors.telefono}</p>
                   )}
                 </div>
               </div>
@@ -289,9 +291,9 @@ export default function Register({ onNavigateToLogin }) {
               <div>
                 <label
                   htmlFor="direccion"
-                  className="block text-xs font-semibold text-slate-700 mb-1"
+                  className="block text-xs sm:text-sm font-semibold text-slate-700 mb-0.5"
                 >
-                  Dirección <span className="text-[11px] text-[#64748B] font-normal">(Opcional)</span>
+                  Dirección <span className="text-[10px] text-[#64748B] font-normal">(Opcional)</span>
                 </label>
                 <input
                   id="direccion"
@@ -301,16 +303,16 @@ export default function Register({ onNavigateToLogin }) {
                   placeholder="Av. Principal 123, Distrito"
                   value={formData.direccion}
                   onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20 bg-white text-slate-800 placeholder:text-slate-400"
+                  className="w-full px-3 py-1.5 sm:py-2 rounded-xl border border-slate-300 text-sm transition-all focus:outline-none focus:ring-2 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20 bg-white text-slate-800 placeholder:text-slate-400"
                 />
               </div>
 
               {/* Grid 2 Columnas: Contraseña y Confirmación */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
                 <div>
                   <label
                     htmlFor="new-password"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs sm:text-sm font-semibold text-slate-700 mb-0.5"
                   >
                     Contraseña <span className="text-[#F59E0B]">*</span>
                   </label>
@@ -323,7 +325,7 @@ export default function Register({ onNavigateToLogin }) {
                       placeholder="Mín. 6 caracteres"
                       value={formData.password}
                       onChange={handleChange}
-                      className={`w-full px-3.5 py-2.5 pr-10 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
+                      className={`w-full px-3 py-1.5 sm:py-2 pr-10 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                         errors.password
                           ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
                           : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
@@ -332,7 +334,7 @@ export default function Register({ onNavigateToLogin }) {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#64748B] hover:text-slate-800 focus:outline-none"
+                      className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-[#64748B] hover:text-slate-800 focus:outline-none cursor-pointer"
                       aria-label={showPassword ? 'Ocultar contraseña' : 'Ver contraseña'}
                     >
                       {showPassword ? (
@@ -348,14 +350,14 @@ export default function Register({ onNavigateToLogin }) {
                     </button>
                   </div>
                   {errors.password && (
-                    <p className="mt-1 text-[11px] text-red-600 font-medium">{errors.password}</p>
+                    <p className="mt-0.5 text-[11px] text-red-600 font-medium">{errors.password}</p>
                   )}
                 </div>
 
                 <div>
                   <label
                     htmlFor="confirmPassword"
-                    className="block text-xs font-semibold text-slate-700 mb-1"
+                    className="block text-xs sm:text-sm font-semibold text-slate-700 mb-0.5"
                   >
                     Repetir Contraseña <span className="text-[#F59E0B]">*</span>
                   </label>
@@ -367,23 +369,23 @@ export default function Register({ onNavigateToLogin }) {
                     placeholder="Repite tu contraseña"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
+                    className={`w-full px-3 py-1.5 sm:py-2 rounded-xl border text-sm transition-all focus:outline-none focus:ring-2 text-slate-800 placeholder:text-slate-400 bg-white ${
                       errors.confirmPassword
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50/20'
                         : 'border-slate-300 focus:border-[#0D7C84] focus:ring-[#0D7C84]/20'
                     }`}
                   />
                   {errors.confirmPassword && (
-                    <p className="mt-1 text-[11px] text-red-600 font-medium">{errors.confirmPassword}</p>
+                    <p className="mt-0.5 text-[11px] text-red-600 font-medium">{errors.confirmPassword}</p>
                   )}
                 </div>
               </div>
 
-              {/* Botón Submit: Tono Primary (#0D7C84) con esquinas redondeadas */}
-              <div className="pt-2">
+              {/* Botón Submit: visible al 100% sin scroll */}
+              <div className="pt-1.5 sm:pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 bg-[#0D7C84] hover:bg-[#0A646A] active:scale-[0.99] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out cursor-pointer text-sm"
+                  className="w-full py-2.5 sm:py-3 px-4 bg-[#0D7C84] hover:bg-[#0A646A] active:scale-[0.99] text-white font-bold rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out cursor-pointer text-sm sm:text-base tracking-wide"
                 >
                   Registrar Propietario
                 </button>
@@ -391,19 +393,19 @@ export default function Register({ onNavigateToLogin }) {
             </form>
 
             {/* Enlace para ir al Login */}
-            <div className="mt-5 pt-4 border-t border-slate-100 text-center">
-              <p className="text-xs text-[#64748B]">
+            <div className="mt-2.5 sm:mt-3 pt-2 sm:pt-2.5 border-t border-slate-100 text-center">
+              <p className="text-xs sm:text-sm text-[#64748B]">
                 ¿Ya tienes una cuenta registrada?{' '}
                 {onNavigateToLogin ? (
                   <button
                     type="button"
                     onClick={onNavigateToLogin}
-                    className="font-semibold text-[#0D7C84] hover:text-[#0A646A] underline ml-1 cursor-pointer"
+                    className="font-bold text-[#0D7C84] hover:text-[#0A646A] underline ml-1 cursor-pointer"
                   >
                     Inicia sesión aquí
                   </button>
                 ) : (
-                  <span className="font-semibold text-[#0D7C84] ml-1">
+                  <span className="font-bold text-[#0D7C84] ml-1">
                     Usa la opción de Iniciar Sesión
                   </span>
                 )}
@@ -412,7 +414,7 @@ export default function Register({ onNavigateToLogin }) {
           </div>
 
           {/* Panel Lateral Derecho: Hero con Imagen Superpuesta (Register - Flujo Simétrico) */}
-          <div className="relative min-h-[360px] sm:min-h-[420px] lg:min-h-[640px] flex flex-col justify-between p-8 sm:p-12 overflow-hidden bg-slate-900 order-1 lg:order-2">
+          <div className="relative min-h-[280px] sm:min-h-[340px] lg:min-h-full flex flex-col justify-between p-6 sm:p-8 lg:p-10 overflow-hidden bg-slate-900 order-1 lg:order-2">
             {/* Imagen importada desde ./assets/vet-hero.png */}
             <img
               src={vetHeroImg}
@@ -425,22 +427,22 @@ export default function Register({ onNavigateToLogin }) {
 
             {/* Contenido Superpuesto Superior */}
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold shadow-sm">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold shadow-sm">
                 <span>🐾</span>
                 <span>Únete a la Familia VetCare</span>
               </div>
             </div>
 
             {/* Contenido Superpuesto Inferior: Título y Texto */}
-            <div className="relative z-10 space-y-3">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
+            <div className="relative z-10 space-y-2 sm:space-y-2.5">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-tight tracking-tight drop-shadow-sm">
                 El mejor comienzo para la salud de tus mascotas
               </h2>
-              <p className="text-sm text-slate-100/90 leading-relaxed max-w-md">
-                Crea tu cuenta de propietario en segundos. Podrás registrar a tus mascotas, agendar consultas con nuestros veterinarios certificados y recibir recordatorios preventivos.
+              <p className="text-xs sm:text-sm text-slate-100/95 leading-relaxed max-w-md">
+                Crea tu cuenta de propietario en segundos para registrar a tus mascotas, agendar consultas con nuestros veterinarios certificados y recibir recordatorios preventivos.
               </p>
 
-              <div className="pt-3 border-t border-white/20 flex items-center gap-4 text-xs text-white/90 font-medium">
+              <div className="pt-2 border-t border-white/20 flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/95 font-medium">
                 <span>✓ Registro gratuito</span>
                 <span>✓ Notificaciones</span>
                 <span>✓ Atención con amor</span>
@@ -450,69 +452,55 @@ export default function Register({ onNavigateToLogin }) {
 
         </div>
 
-        {/* Panel de Inspección de LocalStorage (Evidencia US 01) */}
-        <div className="mt-6 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm">
+        {/* Panel de Inspección de LocalStorage (Evidencia US 01) - Plegado por defecto para no generar scroll */}
+        <div className="mt-2.5 bg-white/90 rounded-xl p-2.5 sm:p-3 border border-slate-200 shadow-xs text-xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="flex h-3 w-3 relative">
+              <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F59E0B] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#F59E0B]"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F59E0B]"></span>
               </span>
-              <h3 className="text-xs sm:text-sm font-bold text-slate-800">
+              <h3 className="text-xs font-bold text-slate-700">
                 LocalStorage: Arreglo de Propietarios ({registeredUsers.length})
               </h3>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setShowStorageData(!showStorageData)}
-                className="text-xs text-[#64748B] hover:text-[#0D7C84] font-medium px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 transition cursor-pointer"
+                className="text-xs text-[#64748B] hover:text-[#0D7C84] font-semibold px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 transition cursor-pointer"
               >
-                {showStorageData ? 'Ocultar' : 'Mostrar'}
+                {showStorageData ? 'Ocultar datos' : 'Ver registros'}
               </button>
               {registeredUsers.length > 0 && (
                 <button
                   type="button"
                   onClick={handleClearUsers}
-                  className="text-xs text-red-600 hover:text-red-700 font-medium px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 transition cursor-pointer"
+                  className="text-xs text-red-600 hover:text-red-700 font-semibold px-2 py-0.5 rounded-md bg-red-50 hover:bg-red-100 transition cursor-pointer"
                 >
-                  Vaciar LocalStorage
+                  Vaciar
                 </button>
               )}
             </div>
           </div>
 
           {showStorageData && (
-            <div className="mt-3.5">
+            <div className="mt-2.5 pt-2 border-t border-slate-100">
               {registeredUsers.length === 0 ? (
-                <div className="text-center py-5 border border-dashed border-slate-200 rounded-xl">
-                  <p className="text-xs text-[#64748B]">
-                    Aún no hay propietarios en el arreglo de <code className="bg-slate-100 px-1 py-0.5 rounded text-[#0D7C84] font-semibold">localStorage.getItem(&apos;vet_users&apos;)</code>.
-                  </p>
+                <div className="text-center py-2 text-xs text-[#64748B]">
+                  No hay propietarios en <code className="bg-slate-100 px-1 py-0.5 rounded text-[#0D7C84] font-semibold">localStorage.getItem(&apos;vet_users&apos;)</code>.
                 </div>
               ) : (
-                <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1">
+                <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
                   {registeredUsers.map((user, index) => (
                     <div
                       key={user.id || index}
-                      className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1"
+                      className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-700 flex items-center justify-between"
                     >
-                      <div className="flex items-center justify-between font-semibold text-slate-800">
-                        <span>
-                          #{index + 1} &bull; {user.nombre}
-                        </span>
-                        <span className="px-2 py-0.5 bg-[#E2F2F3] text-[#0D7C84] font-bold rounded-full text-[10px]">
-                          {user.role}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-0.5 text-[#64748B]">
-                        <p>
-                          <span className="font-semibold text-slate-700">Email:</span> {user.email}
-                        </p>
-                        <p>
-                          <span className="font-semibold text-slate-700">Teléfono:</span> {user.telefono}
-                        </p>
-                      </div>
+                      <span className="font-semibold text-slate-800">
+                        #{index + 1} {user.nombre} ({user.email})
+                      </span>
+                      <span className="text-[10px] text-[#64748B]">{user.telefono}</span>
                     </div>
                   ))}
                 </div>

@@ -55,25 +55,27 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#E2F2F3] font-sans">
-      {/* Barra de navegación superior con diseño pulido */}
-      <header className="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div className="min-h-screen flex flex-col bg-[#E2F2F3] font-sans">
+      {/* Barra de navegación superior compacta con marca VetCare */}
+      <header className="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-50 shadow-xs flex-shrink-0">
+        <div className="max-w-5xl mx-auto px-4 py-2 sm:py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2.5">
             <span
               className={`w-2.5 h-2.5 rounded-full ${
                 hasAuth ? 'bg-[#0D7C84] animate-pulse' : 'bg-[#64748B]'
               }`}
             ></span>
-            <span className="text-xs font-bold text-slate-800 tracking-wide">
-              Clínica Veterinaria &bull; Sistema de Autenticación
+            <span className="text-sm sm:text-base font-extrabold text-slate-800 tracking-tight flex items-center gap-1.5">
+              <span>🐾</span>
+              <span>Vet<span className="text-[#0D7C84]">Care</span></span>
+              <span className="text-[#64748B] font-medium text-xs hidden sm:inline">&bull; Portal de Autenticación</span>
             </span>
             {hasAuth ? (
-              <span className="text-[10px] font-bold bg-[#E2F2F3] text-[#0D7C84] px-2.5 py-0.5 rounded-full border border-[#0D7C84]/20">
+              <span className="text-[10px] font-bold bg-[#E2F2F3] text-[#0D7C84] px-2 py-0.5 rounded-full border border-[#0D7C84]/20">
                 Token Activo
               </span>
             ) : (
-              <span className="text-[10px] font-medium bg-slate-100 text-[#64748B] px-2.5 py-0.5 rounded-full border border-slate-200">
+              <span className="text-[10px] font-medium bg-slate-100 text-[#64748B] px-2 py-0.5 rounded-full border border-slate-200">
                 Sin Sesión
               </span>
             )}
@@ -132,8 +134,8 @@ function App() {
         </div>
       </header>
 
-      {/* Renderizado mediante Componentes Envolventes (US 04) */}
-      <main>
+      {/* Renderizado centrado y con espaciado vertical optimizado (sin scroll) */}
+      <main className="flex-1 flex flex-col items-center justify-center px-3 sm:px-6 py-2 sm:py-3">
         {currentView === 'dashboard' ? (
           <ProtectedRoute onUnauthorized={() => handleNavigate('login')}>
             <Dashboard onRedirectToLogin={handleRedirectToLoginAfterLogout} />
