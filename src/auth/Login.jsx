@@ -8,7 +8,7 @@ import {
   TOKEN_STORAGE_KEY,
 } from './authService';
 
-export default function Login({ onNavigateToRegister, onLoginSuccess }) {
+export default function Login({ onNavigateToRegister, onLoginSuccess, logoutNotice = '' }) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -17,6 +17,7 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [notice, setNotice] = useState(logoutNotice);
   const [session, setSession] = useState(() => ({
     user: getCurrentUser(),
     token: getAuthToken(),
@@ -70,6 +71,7 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
     setSession({ user: null, token: null });
     setSuccess('');
     setError('');
+    setNotice('Sesión cerrada correctamente. El token temporal fue eliminado de LocalStorage.');
   };
 
   const handleQuickFill = (user) => {
@@ -149,6 +151,32 @@ export default function Login({ onNavigateToRegister, onLoginSuccess }) {
               Ingresa tus credenciales para acceder al sistema.
             </p>
           </div>
+
+          {/* Alerta de Cierre de Sesión / Notificación (US 03) */}
+          {notice && (
+            <div
+              role="alert"
+              className="mb-5 p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-sm flex items-start gap-3"
+            >
+              <svg
+                className="w-5 h-5 flex-shrink-0 mt-0.5 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <p className="font-semibold">Sesión Finalizada</p>
+                <p className="text-xs text-blue-600 mt-0.5">{notice}</p>
+              </div>
+            </div>
+          )}
 
           {/* Alerta de Error */}
           {error && (

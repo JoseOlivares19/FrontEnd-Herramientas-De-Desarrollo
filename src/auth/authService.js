@@ -211,14 +211,36 @@ export const isAuthenticated = () => {
 };
 
 /**
- * Cierra la sesión eliminando el token temporal y el usuario de LocalStorage.
+ * Cierra la sesión eliminando el token temporal y el usuario de LocalStorage (US 03).
+ * Permite ejecutar un callback para redirigir a la vista de login.
+ * @param {Function} [onRedirect] - Función callback de redirección a la vista de login.
+ * @returns {{ success: boolean, message: string }}
  */
-export const logoutUser = () => {
+export const logoutUser = (onRedirect) => {
   try {
     localStorage.removeItem(TOKEN_STORAGE_KEY);
     localStorage.removeItem(CURRENT_USER_STORAGE_KEY);
+
+    // Notificar eventos de cambio de sesión
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('auth:logout'));
+      window.dispatchEvent(new Event('storage'));
+    }
+
+    if (typeof onRedirect === 'function') {
+      onRedirect();
+    }
+
+    return {
+      success: true,
+      message: 'Token eliminado de LocalStorage y sesión cerrada correctamente.',
+    };
   } catch (error) {
     console.error('Error al cerrar sesión en LocalStorage:', error);
+    return {
+      success: false,
+      message: 'Error al intentar eliminar la sesión de LocalStorage.',
+    };
   }
 };
 
