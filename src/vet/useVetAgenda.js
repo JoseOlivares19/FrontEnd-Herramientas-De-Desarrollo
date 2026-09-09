@@ -1,3 +1,6 @@
+// Encapsula el estado y la lógica de la agenda del veterinario
+
+
 import { useEffect, useState } from "react";
 import {
   getCitasHoy,

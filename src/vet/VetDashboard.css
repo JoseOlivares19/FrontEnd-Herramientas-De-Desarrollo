@@ -1,0 +1,318 @@
+.vet-dashboard {
+  --primary: #0d7c84;
+  --secondary: #f59e0b;
+  --tertiary: #e2f2f3;
+  --neutral: #64748b;
+  --bg: #f7f9fb;
+  --danger: #dc2626;
+  --ok-bg: #dcfce7;
+  --ok-text: #16a34a;
+  --pending-bg: #fef3c7;
+  --pending-text: #b45309;
+  --danger-bg: #fee2e2;
+
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  padding: 32px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.vet-dashboard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.vet-dashboard__header h1 {
+  font-family: "Manrope", sans-serif;
+  font-size: 28px;
+  margin: 0;
+  color: #0f172a;
+}
+
+.vet-dashboard__subtitle {
+  color: var(--neutral);
+  margin: 4px 0 0;
+}
+
+.vet-dashboard__stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stat-pill {
+  padding: 10px 18px;
+  border-radius: 12px;
+  text-align: center;
+}
+.stat-pill--ok {
+  background: var(--ok-bg);
+  color: var(--ok-text);
+}
+.stat-pill--pending {
+  background: var(--pending-bg);
+  color: var(--pending-text);
+}
+.stat-pill__label {
+  display: block;
+  font-size: 12px;
+}
+.stat-pill__value {
+  font-family: "Manrope", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.vet-dashboard__body {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.vet-agenda {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.vet-agenda__tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #eef2f6;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--neutral);
+  font-weight: 600;
+}
+.tab--active {
+  background: var(--tertiary);
+  color: var(--primary);
+}
+
+.vet-agenda__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vet-agenda__vacio {
+  color: var(--neutral);
+  padding: 24px;
+  text-align: center;
+}
+
+.cita-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #eef2f6;
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.cita-card:hover {
+  border-color: var(--primary);
+}
+.cita-card--activa {
+  border-color: var(--primary);
+  background: var(--tertiary);
+}
+
+.cita-card__hora {
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 56px;
+  font-size: 15px;
+}
+.cita-card__hora span {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--neutral);
+}
+
+.cita-card__info {
+  flex: 1;
+}
+.cita-card__titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cita-card__meta {
+  color: var(--neutral);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.tag {
+  background: var(--tertiary);
+  color: var(--primary);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.tag--urgente {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.badge-ok {
+  background: var(--ok-bg);
+  color: var(--ok-text);
+}
+.badge-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+.badge-pending {
+  background: var(--pending-bg);
+  color: var(--pending-text);
+}
+
+.vet-detalle {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+.vet-detalle__vacio {
+  color: var(--neutral);
+  text-align: center;
+  padding: 32px 0;
+}
+
+.vet-detalle__mascota {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.vet-detalle__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--tertiary);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Manrope", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+.vet-detalle__mascota h2 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+}
+.vet-detalle__mascota p {
+  margin: 2px 0 0;
+  color: var(--neutral);
+  font-size: 13px;
+}
+
+.vet-detalle__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.label {
+  font-size: 12px;
+  color: var(--neutral);
+  text-transform: none;
+}
+.vet-detalle__grid p,
+.vet-detalle__motivo p {
+  margin: 2px 0 0;
+  font-weight: 500;
+}
+
+.vet-detalle__motivo {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.vet-detalle__visitas ul {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+}
+.vet-detalle__visitas li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-top: 1px solid #eef2f6;
+  font-size: 13px;
+}
+.vet-detalle__visitas li span {
+  color: var(--neutral);
+}
+
+.vet-detalle__acciones {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btn {
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn--primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn--primary:disabled {
+  background: #a8c4c6;
+  cursor: not-allowed;
+}
+.btn--outline {
+  background: #fff;
+  border-color: #dbe3ea;
+  color: #334155;
+}
+.vet-detalle__acciones-secundarias {
+  display: flex;
+  gap: 10px;
+}
+.vet-detalle__acciones-secundarias .btn {
+  flex: 1;
+}
+.vet-layout {
+  display: flex;
+  min-height: 100vh;
+}
+.vet-layout__content {
+  flex: 1;
+  overflow-x: auto;
+}
